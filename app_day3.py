@@ -69,6 +69,8 @@ with tab1:
                         st.markdown(f"Description: {assignment['description']}")
                         st.markdown(f"Type: **{assignment['type']}**")
                     break
+            selected_assignment = st.selectbox('Assignment Title')
+                       
 
         
 with tab2:
@@ -144,8 +146,13 @@ with tab3:
             selected_assignment = assignment
             break
 
-    edit_title = st.text_input("Title", key="edit_title", value=selected_assignment.get('title', ''))
-    edit_description = st.text_area("Description", value=selected_assignment.get('description', ''), key="edit_description")
+    edit_title = st.text_input("Title", value=selected_assignment['title'],
+                           key=f"edit_title_{selected_assignment['id']}")
+    edit_description = st.text_area("Description", value=selected_assignment['description'],
+                                key=f"edit_description_{selected_assignment['id']}")
+
+    type_list = ["Homework", "Lab"]
+    selected_assignment_type_index = type_list.index(selected_assignment["type"])
 
     update_btn = st.button("Update Assignment", key="update_btn", use_container_width=True, type="primary")
     if update_btn:
